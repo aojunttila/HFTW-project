@@ -32,7 +32,7 @@ public class JFrameParticlePolygon extends JComponent
    * 
    */
 
-  public JFrameParticlePolygon(int[]args,int[]Xlist,int[]Ylist,Color c1,Color c2,boolean fadeout,BufferedImage image2)
+  public JFrameParticlePolygon(int[]args,int[]Xlist,int[]Ylist,Color c1,Color c2,boolean fadeout)
   {
     xpos=args[0];ypos=args[1];
     Xvar=args[2];Yvar=args[3];
@@ -47,7 +47,7 @@ public class JFrameParticlePolygon extends JComponent
     particleList=new JFramePolygon[maxParticles];
     //attributeList: velX,velY,timeAlive
     attributeList=new float[maxParticles][3];
-    image=image2;
+    //image=image2;
     for(int i=0;i<Xarray.length;i++){
       Xarray[i]+=xpos;
       Yarray[i]+=ypos;
@@ -103,8 +103,9 @@ public class JFrameParticlePolygon extends JComponent
     }
   }
 
-  /*
+  
   public void setPos(int x,int y){xpos=x;ypos=y;}
+  /*
   public void setScale(int xS,int yS){s=xS>0?xS:xScale;yScale=yS>0?yS:yScale;}
   public void changePos(int x,int y){xpos+=x;ypos+=y;}
   public void changeScale(int xS,int yS){xScale=xScale+xS>1?xScale+xS:1;yScale=yScale+yS>1?yScale+yS:1;}

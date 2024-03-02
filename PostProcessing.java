@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PostProcessing {
-    public static BufferedImage blur(BufferedImage imageIn){
+    public static BufferedImage test(BufferedImage imageIn){
         BufferedImage imageOut=new BufferedImage(imageIn.getWidth(),imageIn.getHeight(),BufferedImage.TYPE_INT_ARGB);
         for(int x=0;x<imageIn.getWidth();x++){
             for(int y=0;y<imageIn.getHeight();y++){

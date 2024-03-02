@@ -14,6 +14,7 @@ public class JFramePolygon extends JComponent
   Color linecolor,fillcolor;
   int[]arrayX,arrayY;
   float linewidth;
+  int ogX,ogY;
   int xScale;
   int yScale;
   int rotation;
@@ -27,6 +28,7 @@ public class JFramePolygon extends JComponent
     arrayX=Xarray;arrayY=Yarray;
     poly=new Polygon(arrayX,arrayY,arrayX.length);
     linecolor=Lcolor;fillcolor=Fcolor;linewidth=Lwidth;
+    ogX=Xarray[0];ogY=Yarray[0];
   }
 
   public void draw(Graphics2D g2){

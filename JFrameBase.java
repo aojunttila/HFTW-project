@@ -20,6 +20,8 @@ public class JFrameBase extends JFrame{
   int framecount=-1;
   JFrame frame;
   JPanel panel;
+  //left, right, up, down
+  boolean[]inputs=new boolean[4];
   Boolean mouseDown=false;
   int scrollAmount;
   int mouseX=0;
@@ -49,15 +51,12 @@ public class JFrameBase extends JFrame{
       frame.add(panel);
       frame.setFocusable(true);
       frame.requestFocusInWindow();
-
       fullDraw();
-      //run();
-      ///*
       ScheduledExecutorService executor=Executors.newScheduledThreadPool(1);
       Runnable task=()->{
 
         if(framecount>1){ut.startTimer();}
-        comp.nextFrame(mouseX,mouseY,mouseDown);comp.repaint();
+        comp.nextFrame(mouseX,mouseY,mouseDown,inputs);comp.repaint();
         if(framecount>1){frametimes.add(ut.stopTimer(false));}
         framecount+=1;
         //System.out.println(mouseX+" "+mouseY);
@@ -71,7 +70,6 @@ public class JFrameBase extends JFrame{
       };
       executor.scheduleAtFixedRate(task,0,1000/60,TimeUnit.MILLISECONDS);//*/
 
-      ///*
     panel.addMouseWheelListener(new MouseWheelListener() {
       public void mouseWheelMoved(MouseWheelEvent e) {
         System.out.println(e.getWheelRotation());
@@ -91,9 +89,17 @@ public class JFrameBase extends JFrame{
       panel.addKeyListener(new KeyListener(){
       public void keyTyped(KeyEvent e){}
       public void keyPressed(KeyEvent e){
+        if(e.getKeyCode()==37||e.getKeyCode()==65){inputs[0]=true;}
+        if(e.getKeyCode()==39||e.getKeyCode()==68){inputs[1]=true;}
+        if(e.getKeyCode()==38||e.getKeyCode()==87||e.getKeyCode()==32){inputs[2]=true;}
+        if(e.getKeyCode()==40||e.getKeyCode()==83){inputs[3]=true;}
         //System.out.println(e.getKeyCode());
       }
       public void keyReleased(KeyEvent e){
+        if(e.getKeyCode()==37||e.getKeyCode()==65){inputs[0]=false;}
+        if(e.getKeyCode()==39||e.getKeyCode()==68){inputs[1]=false;}
+        if(e.getKeyCode()==38||e.getKeyCode()==87||e.getKeyCode()==32){inputs[2]=false;}
+        if(e.getKeyCode()==40||e.getKeyCode()==83){inputs[3]=false;}
         //System.out.println(e.getKeyCode());
       }
       });
@@ -110,35 +116,12 @@ public class JFrameBase extends JFrame{
           delta += (now - lastTime) / ns;
           lastTime = now;
           while(delta >= 1){
-            comp.nextFrame(mouseX,mouseY,mouseDown);comp.repaint();
+            comp.nextFrame(mouseX,mouseY,mouseDown,inputs);comp.repaint();
               delta--;
               }
           } 
      }
-
-
-      private void fullDraw(){
-        //for(int y=0;y<h;y++){for(int x=0;x<w;x++){
-          //v=canvas.getValue(x,y);
-          //if(d[v].length==3){c=new Color(d[v][0],d[v][1],d[v][2]);}
-          //else{c=new Color(d[v][0]+random.nextInt(d[v][3]),d[v][1]+random.nextInt(d[v][4]),d[v][2]+random.nextInt(d[v][5]));}
-          //i.setRGB(x,y,c.getRGB());
-
-          /*
-        ut.startTimer();
-        comp.nextFrame();comp.repaint();
-        frametimes.add(ut.stopTimer(false));
-        framecount+=1;
-        if(framecount==1){
-          for(int i=0;i<frametimes.size();i++){
-            float frametotal=0;
-            frametotal+=frametimes.get(i);
-            System.out.println(Util.colorText("Average frame time: "+(frametotal/framecount)+" ms",1,150,1));
-          }
-        }
-           */
-      }
-
+      private void fullDraw(){}
     public static void main(String[]args){
       SwingUtilities.invokeLater(()->new JFrameBase());}
 }
