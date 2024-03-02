@@ -104,7 +104,7 @@ public class JFrameCompBase extends JComponent{
                     imageList[x][y]=new JFrameImage((int)(x*tileMultiplierX),(int)(y*tileMultiplierY),tileWidth,tileHeight,0,textureList.get(csvList[x][y]));
                 }
                 if(csvListBG[x][y]>-1){
-                    imageListBG[x][y]=new JFrameImage((int)(x*tileMultiplierX*BGMultiplier),(int)(y*tileMultiplierY*BGMultiplier-400),(int)(tileWidth*BGMultiplier+1),(int)(tileHeight*BGMultiplier+1),0,textureList.get(csvListBG[x][y]));
+                    imageListBG[x][y]=new JFrameImage((int)(x*tileMultiplierX*BGMultiplier),(int)(y*tileMultiplierY*BGMultiplier-200),(int)(tileWidth*BGMultiplier+1),(int)(tileHeight*BGMultiplier+1),0,textureList.get(csvListBG[x][y]));
                 }
             }}
         
@@ -162,7 +162,7 @@ public class JFrameCompBase extends JComponent{
             if(checkpointEmitter!=null){checkpointEmitter.draw(bufferG);}
 
             if(!dead){player.draw(bufferG);}
-    for(int i=0;i<imageList.length;i++){
+    for(int i=(0>(shiftedX/32)-20?0:(shiftedX/32)+20);i<(imageList.length>(shiftedX/32)+20?imageList.length:(shiftedX/32)+20);i++){
         for(int i2=0;i2<imageList[0].length;i2++){
             if(imageList[i][i2]!=null){
                 imageList[i][i2].draw(bufferG);
@@ -178,7 +178,7 @@ public class JFrameCompBase extends JComponent{
         for(int y=0;y<collisionList[0].length;y++){
             if(collisionList[x][y]!=null&&playerRectange.intersects(collisionList[x][y])){
                 if(harmList[csvList[x][y]]){spike=true;
-                    playerRectange.setLocation(player.getXPos(),player.getYPos()-8);
+                    playerRectange.setLocation(player.getXPos(),player.getYPos()-6);
                     if(playerRectange.intersects(collisionList[x][y])){playerDeath();spike=true;}
                     playerRectange.setLocation(player.getXPos(),player.getYPos());
                 }else{ground=true;}
@@ -196,7 +196,7 @@ public class JFrameCompBase extends JComponent{
    public void checkpointParticles(){
     checkpointEmitter=new JFrameParticlePolygon(
         new int[]{player.getXPos(),player.getYPos(),10,10,180,180,2,10,95,40,200},new int[]{0,10,10,0},new int[]{0,0,10,10},
-        new Color(0,255,0,0),Color.green,true);
+        Color.GREEN,Color.green,true);
         timer3=new Timer(1,playerSnap);
         timer3.setRepeats(true);
         timer3.start();
@@ -241,7 +241,7 @@ public class JFrameCompBase extends JComponent{
     for(int x=0;x<imageList.length;x++){
         for(int y=0;y<imageList[0].length;y++){
             if(imageList[x][y]!=null){imageList[x][y].changePos(x1,y1);}
-            if(imageListBG[x][y]!=null){imageListBG[x][y].changePos(x1*BGMultiplier,0);}
+            if(imageListBG[x][y]!=null){imageListBG[x][y].changePos(x1*BGMultiplier,y1*1.1f);}
             if(collisionList[x][y]!=null){collisionList[x][y].translate(x1,y1);}
         }
     }

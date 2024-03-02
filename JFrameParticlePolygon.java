@@ -77,7 +77,7 @@ public class JFrameParticlePolygon extends JComponent
     for(int i=0;i<maxParticles;i++){
       if((attributeList[i][2]>lifetime||particleList[i]==null)&&framecount>emissionRate){
         framecount-=emissionRate;
-        particleList[i]=new JFramePolygon(Xarray,Yarray,Color.black,new Color(255,0,0,100),1.2f);
+        particleList[i]=new JFramePolygon(Xarray,Yarray,new Color(0,0,0,0),new Color(255,0,0,100),0f);
         particleList[i].movePos(xpos,ypos);
         //particleList[i].setPos(0,0);
         //particleList[i].setPoint(i, i, i);
